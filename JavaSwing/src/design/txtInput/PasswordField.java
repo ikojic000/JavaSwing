@@ -275,8 +275,9 @@ public class PasswordField extends JPasswordField {
 			}
 			
 		};
-		eye = new ImageIcon( getClass().getResource( "/passwordfield/eye.png" ) ).getImage();
-		eye_hide = new ImageIcon( getClass().getResource( "/passwordfield/eye_hide.png" ) ).getImage();
+		eye = new ImageIcon( getClass().getResource( "/passwordField/eye.png" ) ).getImage();
+		eye_hide = new ImageIcon( getClass().getResource( "/passwordField/eye_hide.png" ) ).getImage();
+		
 		animator = new Animator( 300 , target );
 		animator.setResolution( 0 );
 		animator.setAcceleration( 0.5f );

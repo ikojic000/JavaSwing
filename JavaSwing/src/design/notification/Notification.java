@@ -32,8 +32,8 @@ public class Notification extends JComponent {
 	
 	private JButton cmdClose;
 	private JLabel lbIcon;
-	private JLabel lbMessage;
-	private String lblMessageStr = "Uspijeh";
+	private JLabel lblTitle;
+	private String title = "Uspijeh";
 	private JLabel lbMessageText;
 	private JPanel panel;
 	private JDialog dialog;
@@ -44,59 +44,59 @@ public class Notification extends JComponent {
 	private int animate = 10;
 	private BufferedImage imageShadow;
 	private int shadowSize = 6;
-	private Type type;
+	private NotificationType type;
 	private Location location;
 	
-	public Notification( Frame fram , Type type , Location location , String message , String lblMessageStr ) {
+	public Notification( Frame fram , NotificationType type , Location location , String message , String lblTitle ) {
 		
 		this.fram = fram;
 		this.type = type;
 		this.location = location;
 		initComponents();
-		init( message , lblMessageStr );
+		init( message , lblTitle );
 		initAnimator();
 		
 	}
 	
 	
-	private void init( String message , String lblMessageStr ) {
+	private void init( String message , String title ) {
 		
 		setBackground( Color.WHITE );
 		dialog = new JDialog( fram );
 		dialog.setUndecorated( true );
 		dialog.setFocusableWindowState( false );
 		dialog.setBackground( new Color( 0 , 0 , 0 , 0 ) );
-		dialog.add( this );
+		dialog.getContentPane().add( this );
 		dialog.setSize( getPreferredSize() );
 		
-		if ( type == Type.SUCCESS ) {
+		if ( type == NotificationType.SUCCESS ) {
 			
-			if ( lblMessageStr == "" || lblMessageStr == null ) {
+			if ( title== "" || title == null ) {
 				
-				lbMessage.setText( "Uspijeh" );
+				lblTitle.setText( "Uspijeh" );
 				
 			} else {
 				
-				lbMessage.setText( lblMessageStr );
+				lblTitle.setText( title );
 				
 			}
 			
-		} else if ( type == Type.INFO ) {
+		} else if ( type == NotificationType.INFO ) {
 			
-			lbMessage.setText( "Info" );
+			lblTitle.setText( "Info" );
 			
-		} else if ( type == Type.WARNING ) {
+		} else if ( type == NotificationType.WARNING ) {
 			
-			lbMessage.setText( "Upozorenje" );
+			lblTitle.setText( "Upozorenje" );
 			
 		}
 		
-		if ( type == Type.SUCCESS ) {
+		if ( type == NotificationType.SUCCESS ) {
 			
 			lbIcon.setIcon( new ImageIcon( getClass().getResource( "/notification/sucess.png" ) ) );
 			
 //			lbMessage.setText(lblMessageStr);
-		} else if ( type == Type.INFO ) {
+		} else if ( type == NotificationType.INFO ) {
 			
 			lbIcon.setIcon( new ImageIcon( getClass().getResource( "/notification/info.png" ) ) );
 			
@@ -321,11 +321,11 @@ public class Notification extends JComponent {
 		int height = getHeight() - shadowSize * 2;
 		g2.fillRect( x , y , width , height );
 		
-		if ( type == Type.SUCCESS ) {
+		if ( type == NotificationType.SUCCESS ) {
 			
 			g2.setColor( new Color( 18 , 163 , 24 ) );
 			
-		} else if ( type == Type.INFO ) {
+		} else if ( type == NotificationType.INFO ) {
 			
 			g2.setColor( new Color( 28 , 139 , 206 ) );
 			
@@ -377,7 +377,7 @@ public class Notification extends JComponent {
 		
 		lbIcon = new JLabel();
 		panel = new JPanel();
-		lbMessage = new JLabel();
+		lblTitle = new JLabel();
 		lbMessageText = new JLabel();
 		cmdClose = new JButton();
 		
@@ -386,9 +386,9 @@ public class Notification extends JComponent {
 		
 		panel.setOpaque( false );
 		
-		lbMessage.setFont( new Font( "Century Gothic" , Font.BOLD , 15 ) );
-		lbMessage.setForeground( new Color( 38 , 38 , 38 ) );
-		lbMessage.setText( "Message" );
+		lblTitle.setFont( new Font( "Century Gothic" , Font.BOLD , 15 ) );
+		lblTitle.setForeground( new Color( 38 , 38 , 38 ) );
+		lblTitle.setText( "Message" );
 		
 		lbMessageText.setForeground( new Color( 127 , 127 , 127 ) );
 		lbMessageText.setFont( new Font( "Century Gothic" , Font.PLAIN , 14 ) );
@@ -399,10 +399,10 @@ public class Notification extends JComponent {
 		panelLayout.setHorizontalGroup( panelLayout.createParallelGroup( GroupLayout.Alignment.LEADING )
 				.addGroup( panelLayout.createSequentialGroup().addContainerGap()
 						.addGroup( panelLayout.createParallelGroup( GroupLayout.Alignment.LEADING )
-								.addComponent( lbMessage ).addComponent( lbMessageText ) )
+								.addComponent( lblTitle ).addComponent( lbMessageText ) )
 						.addContainerGap( 217 , Short.MAX_VALUE ) ) );
 		panelLayout.setVerticalGroup( panelLayout.createParallelGroup( GroupLayout.Alignment.LEADING )
-				.addGroup( panelLayout.createSequentialGroup().addContainerGap().addComponent( lbMessage )
+				.addGroup( panelLayout.createSequentialGroup().addContainerGap().addComponent( lblTitle )
 						.addGap( 3 , 3 , 3 ).addComponent( lbMessageText ).addContainerGap() ) );
 		
 		cmdClose.setIcon( new ImageIcon( this.getClass().getResource( "/notification/close.png" ) ) ); // NOI18N
@@ -447,13 +447,45 @@ public class Notification extends JComponent {
 	}
 	
 	
-	public void setLblMessageStr( String lblMessageStr ) {
+	public void setLblTitle( String title ) {
 		
-		this.lblMessageStr = lblMessageStr;
+		this.title = title;
+		this.lblTitle.setText( title );
 		
 	}
 	
-	public static enum Type {
+	
+	
+	/**
+	 * @param lbMessageText the lbMessageText to set
+	 */
+	public void setLbMessageText( String lbMessageText ) {
+		
+		this.lbMessageText.setText( lbMessageText );;
+		
+	}
+
+
+	/**
+	 * @param type the type to set
+	 */
+	public void setType( NotificationType type ) {
+		
+		this.type = type;
+		
+	}
+	
+	
+	/**
+	 * @param location the location to set
+	 */
+	public void setLocation( Location location ) {
+		
+		this.location = location;
+		
+	}
+	
+	public static enum NotificationType {
 							 SUCCESS , INFO , WARNING
 	}
 	

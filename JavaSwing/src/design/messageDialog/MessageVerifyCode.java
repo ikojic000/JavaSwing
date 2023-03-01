@@ -13,30 +13,28 @@ import java.awt.geom.RoundRectangle2D;
 
 import javax.swing.BorderFactory;
 import javax.swing.GroupLayout;
+import javax.swing.GroupLayout.Alignment;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
-import javax.swing.JTextPane;
-import javax.swing.LayoutStyle;
+import javax.swing.LayoutStyle.ComponentPlacement;
 import javax.swing.SwingConstants;
 
 import design.button.ButtonShadow;
+import design.txtInput.TextField;
 import raven.glasspanepopup.GlassPanePopup;
 
 
-public class Message extends JPanel {
+public class MessageVerifyCode extends JPanel {
 	
 	private ButtonShadow cmdCancel;
 	private ButtonShadow cmdOK;
 	private JLabel lblTitle;
-	private JTextPane txt;
+	private TextField txtCode;
 	
-	public Message() {
+	public MessageVerifyCode() {
 		
 		initComponents();
 		setOpaque( false );
-		txt.setBackground( new Color( 0 , 0 , 0 , 0 ) );
-		txt.setSelectionColor( new Color( 48 , 170 , 63 , 200 ) );
-		txt.setOpaque( false );
 		
 	}
 	
@@ -56,9 +54,6 @@ public class Message extends JPanel {
 	
 	private void initComponents() {
 		
-		lblTitle = new JLabel();
-		txt = new JTextPane();
-		txt.setFont( new Font( "Century Gothic" , Font.PLAIN , 13 ) );
 		cmdOK = new ButtonShadow();
 		cmdOK.setPreferredSize( new Dimension( 200 , 45 ) );
 		cmdOK.setMinimumSize( new Dimension( 200 , 45 ) );
@@ -71,13 +66,21 @@ public class Message extends JPanel {
 		setBackground( new Color( 244 , 244 , 249 ) );
 		setBorder( BorderFactory.createEmptyBorder( 25 , 25 , 25 , 25 ) );
 		
-		lblTitle.setText( "" );
+		lblTitle = new JLabel();
+		lblTitle.setText( "Unesite kod" );
 		lblTitle.setFont( new Font( "Century Gothic" , Font.BOLD , 18 ) );
 		lblTitle.setForeground( new Color( 146 , 20 , 12 ) );
 		lblTitle.setHorizontalAlignment( SwingConstants.CENTER );
 		
-		txt.setForeground( new Color( 66 , 76 , 76 ) );
-		txt.setText( " " );
+		txtCode = new TextField();
+		txtCode.setLabelText( "Kod" );
+		txtCode.setHelperText( "Unesite kod poslan na Va\u0161u mail adresu" );
+		txtCode.setFont( new Font( "Century Gothic" , Font.PLAIN , 13 ) );
+		txtCode.setBackground( new Color( 0 , 0 , 0 , 0 ) );
+		txtCode.setSelectionColor( new Color( 48 , 170 , 63 , 200 ) );
+		txtCode.setOpaque( false );
+		txtCode.setForeground( new Color( 66 , 76 , 76 ) );
+		
 		cmdOK.setRound( 15 );
 		cmdOK.setFocusPainted( false );
 		cmdOK.setText( "OK" );
@@ -102,32 +105,31 @@ public class Message extends JPanel {
 		} );
 		
 		GroupLayout layout = new GroupLayout( this );
-		this.setLayout( layout );
-		layout.setHorizontalGroup( layout.createParallelGroup( GroupLayout.Alignment.LEADING )
-				.addGroup( layout.createSequentialGroup().addContainerGap()
-						.addGroup( layout.createParallelGroup( GroupLayout.Alignment.LEADING )
-								.addGroup( layout.createSequentialGroup().addComponent( lblTitle ).addGap( 0 , 261 ,
+		layout.setHorizontalGroup( layout.createParallelGroup( Alignment.LEADING ).addGroup( layout
+				.createSequentialGroup().addContainerGap()
+				.addGroup( layout.createParallelGroup( Alignment.LEADING )
+						.addComponent( txtCode , Alignment.TRAILING , GroupLayout.PREFERRED_SIZE , 0 , Short.MAX_VALUE )
+						.addGroup( Alignment.TRAILING ,
+								layout.createSequentialGroup().addComponent( lblTitle ).addGap( 0 , 390 ,
 										Short.MAX_VALUE ) )
-								.addComponent( txt , GroupLayout.PREFERRED_SIZE , 0 , Short.MAX_VALUE )
-								.addGroup( GroupLayout.Alignment.TRAILING ,
-										layout.createSequentialGroup().addGap( 0 , 0 , Short.MAX_VALUE )
-												.addComponent( cmdCancel , GroupLayout.PREFERRED_SIZE , 113 ,
-														GroupLayout.PREFERRED_SIZE )
-												.addGap( 18 , 18 , 18 ).addComponent( cmdOK ,
-														GroupLayout.PREFERRED_SIZE , 110 ,
-														GroupLayout.PREFERRED_SIZE ) ) ) ) );
-		layout.setVerticalGroup( layout.createParallelGroup( GroupLayout.Alignment.LEADING ).addGroup( layout
+						.addGroup( Alignment.TRAILING ,
+								layout.createSequentialGroup().addGap( 0 , 149 , Short.MAX_VALUE )
+										.addComponent( cmdCancel , GroupLayout.PREFERRED_SIZE , 113 ,
+												GroupLayout.PREFERRED_SIZE )
+										.addGap( 18 ).addComponent( cmdOK , GroupLayout.PREFERRED_SIZE , 110 ,
+												GroupLayout.PREFERRED_SIZE ) ) ) ) );
+		layout.setVerticalGroup( layout.createParallelGroup( Alignment.LEADING ).addGroup( layout
 				.createSequentialGroup().addContainerGap().addComponent( lblTitle )
-				.addPreferredGap( LayoutStyle.ComponentPlacement.UNRELATED )
-				.addComponent(
-						txt , GroupLayout.PREFERRED_SIZE , GroupLayout.DEFAULT_SIZE , GroupLayout.PREFERRED_SIZE )
-				.addPreferredGap( LayoutStyle.ComponentPlacement.UNRELATED )
-				.addGroup( layout.createParallelGroup( GroupLayout.Alignment.BASELINE )
+				.addPreferredGap( ComponentPlacement.UNRELATED )
+				.addComponent( txtCode , GroupLayout.PREFERRED_SIZE , 61 , GroupLayout.PREFERRED_SIZE )
+				.addPreferredGap( ComponentPlacement.RELATED )
+				.addGroup( layout.createParallelGroup( Alignment.BASELINE )
 						.addComponent( cmdOK , GroupLayout.PREFERRED_SIZE , GroupLayout.DEFAULT_SIZE ,
 								GroupLayout.PREFERRED_SIZE )
 						.addComponent( cmdCancel , GroupLayout.PREFERRED_SIZE , GroupLayout.DEFAULT_SIZE ,
 								GroupLayout.PREFERRED_SIZE ) )
 				.addContainerGap() ) );
+		this.setLayout( layout );
 		
 	}
 	
@@ -146,16 +148,12 @@ public class Message extends JPanel {
 	}
 	
 	
-	public void setMessageTitle( String title ) {
+	/**
+	 * @return the txtCode
+	 */
+	public Integer getTxtCode() {
 		
-		lblTitle.setText( title );
-		
-	}
-	
-	
-	public void setMessageText( String text ) {
-		
-		txt.setText( text );
+		return Integer.valueOf( txtCode.getText() );
 		
 	}
 	

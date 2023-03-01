@@ -21,16 +21,17 @@ import javax.swing.SwingConstants;
 
 import design.button.ButtonShadow;
 import raven.glasspanepopup.GlassPanePopup;
+import javax.swing.GroupLayout.Alignment;
+import javax.swing.LayoutStyle.ComponentPlacement;
 
 
-public class Message extends JPanel {
+public class MessageInfo extends JPanel {
 	
 	private ButtonShadow cmdCancel;
-	private ButtonShadow cmdOK;
 	private JLabel lblTitle;
 	private JTextPane txt;
 	
-	public Message() {
+	public MessageInfo() {
 		
 		initComponents();
 		setOpaque( false );
@@ -59,10 +60,6 @@ public class Message extends JPanel {
 		lblTitle = new JLabel();
 		txt = new JTextPane();
 		txt.setFont( new Font( "Century Gothic" , Font.PLAIN , 13 ) );
-		cmdOK = new ButtonShadow();
-		cmdOK.setPreferredSize( new Dimension( 200 , 45 ) );
-		cmdOK.setMinimumSize( new Dimension( 200 , 45 ) );
-		cmdOK.setMaximumSize( new Dimension( 200 , 45 ) );
 		cmdCancel = new ButtonShadow();
 		cmdCancel.setMinimumSize( new Dimension( 200 , 45 ) );
 		cmdCancel.setMaximumSize( new Dimension( 200 , 45 ) );
@@ -78,16 +75,12 @@ public class Message extends JPanel {
 		
 		txt.setForeground( new Color( 66 , 76 , 76 ) );
 		txt.setText( " " );
-		cmdOK.setRound( 15 );
-		cmdOK.setFocusPainted( false );
-		cmdOK.setText( "OK" );
-		cmdOK.setFont( new Font( "Century Gothic" , Font.BOLD , 15 ) );
 		
 		cmdCancel.setBackground( new Color( 146 , 20 , 12 ) );
 		cmdCancel.setForeground( new Color( 244 , 244 , 249 ) );
 		cmdCancel.setForegroundColorIN( cmdCancel.getForeground() );
 		cmdCancel.setForegroundColorOUT( cmdCancel.getForeground() );
-		cmdCancel.setText( "Prekid" );
+		cmdCancel.setText( "Zatvori" );
 		cmdCancel.setRound( 15 );
 		cmdCancel.setFocusPainted( false );
 		cmdCancel.setFont( new Font( "Century Gothic" , Font.BOLD , 15 ) );
@@ -102,32 +95,22 @@ public class Message extends JPanel {
 		} );
 		
 		GroupLayout layout = new GroupLayout( this );
-		this.setLayout( layout );
-		layout.setHorizontalGroup( layout.createParallelGroup( GroupLayout.Alignment.LEADING )
-				.addGroup( layout.createSequentialGroup().addContainerGap()
-						.addGroup( layout.createParallelGroup( GroupLayout.Alignment.LEADING )
-								.addGroup( layout.createSequentialGroup().addComponent( lblTitle ).addGap( 0 , 261 ,
-										Short.MAX_VALUE ) )
-								.addComponent( txt , GroupLayout.PREFERRED_SIZE , 0 , Short.MAX_VALUE )
-								.addGroup( GroupLayout.Alignment.TRAILING ,
-										layout.createSequentialGroup().addGap( 0 , 0 , Short.MAX_VALUE )
-												.addComponent( cmdCancel , GroupLayout.PREFERRED_SIZE , 113 ,
-														GroupLayout.PREFERRED_SIZE )
-												.addGap( 18 , 18 , 18 ).addComponent( cmdOK ,
-														GroupLayout.PREFERRED_SIZE , 110 ,
-														GroupLayout.PREFERRED_SIZE ) ) ) ) );
-		layout.setVerticalGroup( layout.createParallelGroup( GroupLayout.Alignment.LEADING ).addGroup( layout
-				.createSequentialGroup().addContainerGap().addComponent( lblTitle )
-				.addPreferredGap( LayoutStyle.ComponentPlacement.UNRELATED )
-				.addComponent(
-						txt , GroupLayout.PREFERRED_SIZE , GroupLayout.DEFAULT_SIZE , GroupLayout.PREFERRED_SIZE )
-				.addPreferredGap( LayoutStyle.ComponentPlacement.UNRELATED )
-				.addGroup( layout.createParallelGroup( GroupLayout.Alignment.BASELINE )
-						.addComponent( cmdOK , GroupLayout.PREFERRED_SIZE , GroupLayout.DEFAULT_SIZE ,
+		layout.setHorizontalGroup( layout.createParallelGroup( Alignment.LEADING ).addGroup( layout
+				.createSequentialGroup().addContainerGap()
+				.addGroup( layout.createParallelGroup( Alignment.TRAILING )
+						.addGroup( layout.createSequentialGroup().addComponent( lblTitle ).addGap( 0 , 390 ,
+								Short.MAX_VALUE ) )
+						.addComponent( txt , GroupLayout.PREFERRED_SIZE , 0 , Short.MAX_VALUE ).addComponent(
+								cmdCancel , GroupLayout.PREFERRED_SIZE , 110 , GroupLayout.PREFERRED_SIZE ) ) ) );
+		layout.setVerticalGroup( layout.createParallelGroup( Alignment.LEADING )
+				.addGroup( layout.createSequentialGroup().addContainerGap().addComponent( lblTitle )
+						.addPreferredGap( ComponentPlacement.UNRELATED )
+						.addComponent( txt , GroupLayout.PREFERRED_SIZE , GroupLayout.DEFAULT_SIZE ,
 								GroupLayout.PREFERRED_SIZE )
-						.addComponent( cmdCancel , GroupLayout.PREFERRED_SIZE , GroupLayout.DEFAULT_SIZE ,
-								GroupLayout.PREFERRED_SIZE ) )
-				.addContainerGap() ) );
+						.addPreferredGap( ComponentPlacement.UNRELATED ).addComponent( cmdCancel ,
+								GroupLayout.PREFERRED_SIZE , GroupLayout.DEFAULT_SIZE , GroupLayout.PREFERRED_SIZE )
+						.addContainerGap() ) );
+		this.setLayout( layout );
 		
 	}
 	
@@ -135,13 +118,6 @@ public class Message extends JPanel {
 	private void cmdCancelActionPerformed( ActionEvent evt ) {
 		
 		GlassPanePopup.closePopupLast();
-		
-	}
-	
-	
-	public void eventOK( ActionListener event ) {
-		
-		cmdOK.addActionListener( event );
 		
 	}
 	

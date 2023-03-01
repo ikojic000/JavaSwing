@@ -140,13 +140,10 @@ public class TextField extends JTextField {
 					
 				} catch ( Exception e ) {
 					
-					System.out.println( "Helper text prazan ..." );
-					
 				}
 				
 				if ( txtfs.equals( "" ) || txtfs == null ) {
 					
-					System.out.println( txtfs );
 					setHelperText( "" );
 					
 				} else {
